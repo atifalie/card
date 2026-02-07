@@ -9,6 +9,57 @@
         rel="stylesheet">
 
     <style>
+        /* Overlay styling */
+        #overlay {
+            position: absolute;
+            inset: 0;
+            background: rgb(255, 196, 214);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            cursor: pointer;
+            font-family: 'Gamja Flower', cursive;
+            font-size: 2.2rem;
+            color: white;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+            /* animations + transition */
+            animation: floatOverlay 3s infinite ease-in-out;
+            /* transition: opacity 0.8s ease, transform 0.8s ease; */
+        }
+
+        /* When hiding overlay */
+        #overlay.hide {
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatOverlay {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
         :root {
             --pastel-pink: #ffc4d6;
             --pastel-purple: #d4c4ff;
@@ -222,6 +273,7 @@
 </head>
 
 <body>
+    <div id="overlay">Click Me 🌹</div>
 
     <!-- YouTube Iframe -->
     <div id="player"></div>
@@ -285,6 +337,15 @@
 
 
     <script>
+        const overlay = document.getElementById('overlay');
+        const card = document.querySelector('.card');
+
+        overlay.addEventListener('click', () => {
+            overlay.classList.add = "hide";
+            overlay.style.display = 'none';  // hide overlay
+
+            card.style.opacity = 1;          // fade in card
+        });
         // Petal Generator
         const pBox = document.getElementById('petal-box');
         for (let i = 0; i < 35; i++) {
@@ -328,7 +389,7 @@
                 }
             });
         }
-        
+
         // Play / Stop button
         const button = document.getElementById("toggleMusic");
         button.addEventListener("click", () => {
