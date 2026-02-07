@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Day x K-Aesthetic</title>
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --pastel-pink: #ffc4d6;
+    --pastel-purple: #d4c4ff;
+    --cream: #fdfaf6;
+    --text-dark: #5a4a4a;
+    --rose-color: #ff8fab;
+  }
+
+  body {
+    margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
+    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
+    font-family: 'Quicksand', sans-serif; overflow: hidden;
+  }
+
+  /* --- Raining Petals --- */
+  .petal-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+  .falling-petal {
+    position: absolute; top: -20px; background: white; opacity: 0.5;
+    border-radius: 50% 0 50% 50%; animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* --- Centered Side Menus --- */
+  .side-menu {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 100px; z-index: 50;
+  }
+  .left-side { left: 8%; }
+  .right-side { right: 8%; }
+
+  .item-wrapper { position: relative; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+  .theme-icon {
+    width: 65px; height: 65px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    transition: transform 0.3s ease; animation: bounce 3s infinite ease-in-out;
+  }
+  .item-wrapper:hover .theme-icon { transform: scale(1.2) rotate(10deg); }
+
+  /* --- Quote Bubbles --- */
+  .quote-bubble {
+    position: absolute; bottom: 85px; width: 160px; background: white; padding: 12px;
+    border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    opacity: 0; transform: scale(0.8); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none; text-align: center; border: 2px solid var(--rose-color);
+  }
+  .quote-bubble.show { opacity: 1; transform: scale(1); }
+  .ko { display: block; font-family: 'Gamja Flower', cursive; color: var(--rose-color); font-size: 1.2rem; }
+  .en { font-size: 0.85rem; color: var(--text-dark); display: block; margin-top: 4px; }
+
+  /* --- Main Card --- */
+  .card {
+    position: relative; width: 310px; padding: 40px; background: var(--cream);
+    border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    text-align: center; z-index: 100; border: 8px solid white; animation: float 5s infinite ease-in-out;
+  }
+
+  /* --- Music Controls --- */
+  .music-btn {
+    position: absolute; top: 20px; right: 20px; z-index: 200;
+    background: white; border: none; padding: 10px 20px; border-radius: 20px;
+    font-family: 'Quicksand', sans-serif; cursor: pointer; font-weight: bold;
+    color: var(--rose-color); box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+  /* Responsive for Phone */
+  @media (max-width: 900px) {
+    .side-menu { flex-direction: row; top: auto; bottom: 30px; left: 0; right: 0; justify-content: center; gap: 30px; transform: none; }
+    .card { transform: scale(0.8); margin-top: -60px; }
+    .left-side, .right-side { left: 0; right: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <button class="music-btn" onclick="toggleMusic()">🎵 Play Vibe</button>
+
+  <div class="petal-container" id="petal-box"></div>
+
+  <div class="side-menu left-side">
+    <div class="item-wrapper" onclick="toggleMsg(this)">
+      <div class="quote-bubble"><span class="ko">꽃길만 걷자</span><span class="en">Walk on flower paths.</span></div>
+      <svg class="theme-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="white"/><circle cx="50" cy="50" r="30" fill="#ffc4d6"/><path d="M50 30c5-10 20-10 20 5s-15 20-20 25c-5-5-20-10-20-25s15-15 20-5" fill="#ff8fab"/></svg>
+    </div>
+    <div class="item-wrapper" onclick="toggleMsg(this)">
+      <div class="quote-bubble"><span class="ko">오늘도 화이팅!</span><span class="en">Fighting today!</span></div>
+      <svg class="theme-icon" viewBox="0 0 100 100"><rect x="25" y="40" width="50" height="40" rx="5" fill="#d4c4ff"/><rect x="20" y="35" width="60" height="10" rx="2" fill="#ff8fab"/><path d="M50 35c-5-10-15-5-15 0s10 10 15 10s15-5 15-10s-10-10-15 0" fill="white"/></svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size: 80px; margin-bottom: 10px;">🌹</div>
+    <h2 style="font-family: 'Gamja Flower', cursive; color: var(--rose-color); font-size: 2.2rem; margin: 0;">장미처럼 예쁜 너</h2>
+    <h1 style="color: var(--text-dark); margin: 5px 0; font-size: 1.6rem;">Happy Rose Day!</h1>
+    <h1 style="color: var(--text-dark); margin: 5px 0; font-size: 1.6rem;"> -- Honey -- </h1>
+    <p style="color: #999; font-size: 0.95rem; line-height: 1.4;">Tap the icons and turn on the music for the full experience! ✨</p>
+  </div>
+
+  <div class="side-menu right-side">
+    <div class="item-wrapper" onclick="toggleMsg(this)">
+      <div class="quote-bubble"><span class="ko">사랑스러워요</span><span class="en">You're so lovely.</span></div>
+      <svg class="theme-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="white"/><path d="M50 25 L75 50 L50 75 L25 50 Z" fill="#d4c4ff"/><path d="M50 35 L65 50 L50 65 L35 50 Z" fill="white" opacity="0.6"/></svg>
+    </div>
+    <div class="item-wrapper" onclick="toggleMsg(this)">
+      <div class="quote-bubble"><span class="ko">우리 평생 친구</span><span class="en">Friends for life.</span></div>
+      <svg class="theme-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="white"/><circle cx="40" cy="50" r="15" fill="#ffc4d6"/><circle cx="60" cy="50" r="15" fill="#ff8fab" opacity="0.8"/></svg>
+    </div>
+  </div>
+  <div style="position: absolute; bottom: 10%">
+    <div>
+        <h1 style="color: var(--text-dark); margin: 5px 0; font-size: 1.6rem;">You are the best thing ever happened to me.. ❤️</h1>
+    </div>
+  </div>
+
+
+  <script>
+    // Petal Generator
+    const pBox = document.getElementById('petal-box');
+    for (let i = 0; i < 35; i++) {
+      const p = document.createElement('div');
+      p.className = 'falling-petal';
+      const s = Math.random() * 15 + 10 + 'px';
+      p.style.width = s; p.style.height = s;
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = Math.random() * 5 + 5 + 's';
+      p.style.animationDelay = Math.random() * 5 + 's';
+      p.style.background = Math.random() > 0.5 ? '#ffc4d6' : '#ffffff';
+      pBox.appendChild(p);
+    }
+
+    function toggleMsg(el) {
+      const b = el.querySelector('.quote-bubble');
+      const s = b.classList.contains('show');
+      document.querySelectorAll('.quote-bubble').forEach(q => q.classList.remove('show'));
+      if (!s) b.classList.add('show');
+    }
+
+    let playing = false;
+    function toggleMusic() {
+      const iframe = document.getElementById('player');
+      const btn = document.querySelector('.music-btn');
+      if (!playing) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        btn.innerText = "⏸ Pause Music";
+      } else {
+        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        btn.innerText = "🎵 Play Vibe";
+      }
+      playing = !playing;
+    }
+  </script>
+</body>
+</html>
